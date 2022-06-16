@@ -22,6 +22,16 @@ class articleController {
         }
     }
 
+    static async createArticle(req, res, next) {
+        const { title, content, images, author } = req.body
+        try {
+            const response = await Article.createArticle(title, content, images, author)
+            res.status(200).json({ message: "Successfully created", id: response })
+        } catch (error) {
+            next(error)
+        }
+    }
+
 }
 
 module.exports = articleController

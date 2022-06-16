@@ -60,6 +60,35 @@ class Article {
         }
     }
 
+    static async createArticle(title, content, images, author) {
+        try {
+            if (!title) {
+                throw {
+                    name: 'Title is required'
+                }
+            }
+            if (!content) {
+                throw {
+                    name: 'Content is required'
+                }
+            }
+            if (!images) {
+                throw {
+                    name: 'Images is required'
+                }
+            }
+            if (!author) {
+                throw {
+                    name: 'Author is required'
+                }
+            }
+            const newArticle = await this.article().insertOne({ title, content, images, author })
+            console.log(newArticle);
+            return newArticle.insertedId
+        } catch (error) {
+            throw error
+        }
+    }
 
 }
 
