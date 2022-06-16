@@ -5,15 +5,26 @@ const axios = require("axios");
 const mainUrl = "http://localhost:4000";
 
 const typeDefs = gql`
-type Article {
+    type Article {
     _id: ID
     title: String
     content: String
     images: String
     author: String
     } 
+
+    type Comment {
+    _id: ID
+    artcleId: String
+    name: String
+    content: String
+
+    }
+
     type Query {
         articles: [Article]
+        articleById(_id: ID): Article
+        comments: [Comment]
     }
 `
 
@@ -26,7 +37,18 @@ const resolvers = {
             } catch (error) {
                 return error
             }
-        }
+        },
+
+        articleById: async (_, args) => {
+            try {
+                const response = await axios.get(`${mainUrl}/articles/${args._id}`);
+                return response.data;
+            } catch (error) {
+                return error
+            }
+        },
+
+
     }
 }
 
