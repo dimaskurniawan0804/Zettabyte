@@ -57,6 +57,26 @@ class Comment {
             throw error
         }
     }
+    static async updateComment(articleId, id, comment) {
+        try {
+            const findComment = await this.comment().findOne({ _id: ObjectId(id), articleId })
+            if (!findComment) {
+                throw {
+                    name: 'No comment found'
+                }
+            }
+            if (!comment.name) {
+                comment.name = findComment.name
+            }
+            if (!comment.text) {
+                comment.text = findComment.text
+            }
+            const updateComment = await this.comment().updateOne({ _id: ObjectId(id) }, { $set: { articleId, name: comment.name, text: comment.text } })
+            return updateComment
+        } catch (error) {
+            throw error
+        }
+    }
 }
 
 module.exports = Comment

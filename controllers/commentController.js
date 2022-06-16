@@ -26,6 +26,14 @@ class commentsController {
             next(error);
         }
     }
+    static async updateComment(req, res, next) {
+        try {
+            const comment = await Comment.updateComment(req.params.articleId, req.params.commentId, req.body);
+            res.status(200).json({ message: 'Comment updated successfully' });
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 module.exports = commentsController
