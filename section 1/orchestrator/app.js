@@ -18,7 +18,10 @@ const typeDefs = gql`
     artcleId: String
     name: String
     content: String
+    }
 
+    type Response {
+        message: [String]
     }
 
     type Query {
@@ -26,6 +29,13 @@ const typeDefs = gql`
         articleById(_id: ID): Article
         comments: [Comment]
     }
+
+    type Mutation{
+        createArticle(title: String, content: String, images: String, author: String): Response
+    }
+
+
+
 `
 
 const resolvers = {
@@ -47,8 +57,19 @@ const resolvers = {
                 return error
             }
         },
+    },
 
-
+    Mutation: {
+        createArticle: async (_, args) => {
+            console.log(args);
+            try {
+                const { data } = await axios.post(`${mainUrl}/articles`, args);
+                console.log(data);
+                return { message: [data.message] };
+            } catch (error) {
+                return error
+            }
+        }
     }
 }
 
