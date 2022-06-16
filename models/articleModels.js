@@ -46,6 +46,20 @@ class Article {
         }
     }
 
+    static async findArticleById(id) {
+        try {
+            const article = await this.article().findOne({ _id: ObjectId(id) })
+            if (!article) {
+                throw {
+                    name: 'No article found'
+                }
+            }
+            return article
+        } catch (error) {
+            throw error
+        }
+    }
+
 
 }
 
