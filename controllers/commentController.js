@@ -18,6 +18,14 @@ class commentsController {
             next(error);
         }
     }
+    static async createComment(req, res, next) {
+        try {
+            const comment = await Comment.createComment(req.params.articleId, req.body);
+            res.status(201).json({ mssage: 'Comment created successfully' });
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 module.exports = commentsController

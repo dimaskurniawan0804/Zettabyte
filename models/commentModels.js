@@ -38,6 +38,25 @@ class Comment {
             throw error
         }
     }
+    static async createComment(articleId, comment) {
+        try {
+            const article = await this.article().findOne({ _id: ObjectId(articleId) })
+            if (!article) {
+                throw {
+                    name: 'No article found'
+                }
+            } else {
+                const newComment = await this.comment().insertOne({
+                    articleId,
+                    name: comment.name,
+                    text: comment.text,
+                })
+                return newComment
+            }
+        } catch (error) {
+            throw error
+        }
+    }
 }
 
 module.exports = Comment
