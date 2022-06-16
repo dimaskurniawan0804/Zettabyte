@@ -32,6 +32,19 @@ class articleController {
         }
     }
 
+    static async updateArticle(req, res, next) {
+        const { id } = req.params
+        const { title, content, images, author } = req.body
+        try {
+            const response = await Article.updateArticle(id, title, content, images, author)
+            if (response === 1) {
+                res.status(200).json({ message: "Successfully updated" })
+            }
+        } catch (error) {
+            next(error)
+        }
+    }
+
 }
 
 module.exports = articleController

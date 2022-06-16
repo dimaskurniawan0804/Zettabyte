@@ -90,6 +90,44 @@ class Article {
         }
     }
 
+    static async updateArticle(id, title, content, images, author) {
+        try {
+            const article = await this.article().findOne({ _id: ObjectId(id) })
+            console.log(title);
+            if (!article) {
+                throw {
+                    name: 'No article found'
+                }
+            }
+            if (!title) {
+                title = article.title
+            }
+            if (!content) {
+                content = article.content
+            }
+            if (!images) {
+                images = article.images
+            }
+            if (!author) {
+                author = article.author
+            }
+            const updateArticle = await this.article().updateOne({ _id: ObjectId(id) }, { $set: { title, content, images, author } })
+            console.log(updateArticle);
+            if (updateArticle.modifiedCount === 0) {
+                throw {
+                    name: 'Update Article failed'
+                }
+
+            } else {
+                return 1
+            }
+
+        } catch (error) {
+            console.log(error);
+            throw error
+        }
+    }
+
 }
 
 module.exports = Article
