@@ -19,6 +19,25 @@ class Comment {
             throw error
         }
     }
+    static async getCommentById(articleId, id) {
+        try {
+            const article = await this.article().findOne({ _id: ObjectId(articleId) })
+            if (!article) {
+                throw {
+                    name: 'No article found'
+                }
+            }
+            const comment = await this.comment().findOne({ _id: ObjectId(id), articleId })
+            if (!comment) {
+                throw {
+                    name: 'No comment found'
+                }
+            }
+            return comment
+        } catch (error) {
+            throw error
+        }
+    }
 }
 
 module.exports = Comment

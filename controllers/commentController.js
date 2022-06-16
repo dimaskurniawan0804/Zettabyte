@@ -10,6 +10,14 @@ class commentsController {
             next(error);
         }
     }
+    static async getCommentById(req, res, next) {
+        try {
+            const comment = await Comment.getCommentById(req.params.articleId, req.params.commentId);
+            res.status(200).json(comment);
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 module.exports = commentsController
