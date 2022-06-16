@@ -30,8 +30,11 @@ const typeDefs = gql`
         comments: [Comment]
     }
 
+
+
     type Mutation{
         createArticle(title: String, content: String, images: String, author: String): Response
+        updateArticle(_id: ID, title: String, content: String, images: String, author: String): Response
     }
 
 
@@ -64,7 +67,15 @@ const resolvers = {
             console.log(args);
             try {
                 const { data } = await axios.post(`${mainUrl}/articles`, args);
-                console.log(data);
+                return { message: [data.message] };
+            } catch (error) {
+                return error
+            }
+        },
+
+        updateArticle: async (_, args) => {
+            try {
+                const { data } = await axios.put(`${mainUrl}/articles/${args._id}`, args);
                 return { message: [data.message] };
             } catch (error) {
                 return error
