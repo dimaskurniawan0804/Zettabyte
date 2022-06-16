@@ -5,10 +5,10 @@ require("dotenv").config();
 const cors = require("cors");
 const errorHandler = require("./middlewares/errorHandler");
 const express = require("express");
-const { connection } = require("../Zettabyte/config/index");
+const { connection } = require("./config/index");
 const app = express();
 const port = process.env.PORT;
-const router = require("../Zettabyte/routes/index");
+const router = require("./routes/index");
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));

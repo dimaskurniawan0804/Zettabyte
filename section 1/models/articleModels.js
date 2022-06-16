@@ -1,4 +1,4 @@
-const { getDB } = require('../../Zettabyte/config/index');
+const { getDB } = require('../config/index');
 const { ObjectId } = require('mongodb');
 
 class Article {
