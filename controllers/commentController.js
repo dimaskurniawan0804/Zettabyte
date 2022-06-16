@@ -34,6 +34,14 @@ class commentsController {
             next(error);
         }
     }
+    static async deleteComment(req, res, next) {
+        try {
+            const comment = await Comment.deleteComment(req.params.commentId);
+            res.status(200).json({ message: 'Comment deleted successfully' });
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 module.exports = commentsController

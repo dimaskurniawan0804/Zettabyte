@@ -77,6 +77,20 @@ class Comment {
             throw error
         }
     }
+    static async deleteComment(id) {
+        try {
+            const findComment = await this.comment().findOne({ _id: ObjectId(id) })
+            if (!findComment) {
+                throw {
+                    name: 'No comment found'
+                }
+            }
+            const deleteComment = await this.comment().deleteOne({ _id: ObjectId(id) })
+            return deleteComment
+        } catch {
+            throw error
+        }
+    }
 }
 
 module.exports = Comment
