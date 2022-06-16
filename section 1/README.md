@@ -7,7 +7,7 @@ you can use your own mongodb and seed this data for test my code
 ## in your shell do this operation
 paste:
 
-1. use zettaByte_zettaByte_backendTest
+1. use zettaByte_backendTest
 2. db.articles.insert([
     {
         title: "New Article Alpha",
