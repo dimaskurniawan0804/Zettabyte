@@ -35,6 +35,7 @@ const typeDefs = gql`
     type Mutation{
         createArticle(title: String, content: String, images: String, author: String): Response
         updateArticle(_id: ID, title: String, content: String, images: String, author: String): Response
+        deleteArticle(_id: ID): Response
     }
 
 
@@ -76,6 +77,15 @@ const resolvers = {
         updateArticle: async (_, args) => {
             try {
                 const { data } = await axios.put(`${mainUrl}/articles/${args._id}`, args);
+                return { message: [data.message] };
+            } catch (error) {
+                return error
+            }
+        },
+
+        deleteArticle: async (_, args) => {
+            try {
+                const { data } = await axios.delete(`${mainUrl}/articles/${args._id}`);
                 return { message: [data.message] };
             } catch (error) {
                 return error
