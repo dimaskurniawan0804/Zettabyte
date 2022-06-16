@@ -45,6 +45,18 @@ class articleController {
         }
     }
 
+    static async deleteArticle(req, res, next) {
+        const { id } = req.params
+        try {
+            const response = await Article.deleteArticle(id)
+            if (response === 1) {
+                res.status(200).json({ message: "Successfully deleted" })
+            }
+        } catch (error) {
+            next(error)
+        }
+    }
+
 }
 
 module.exports = articleController

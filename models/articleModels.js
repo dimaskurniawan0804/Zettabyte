@@ -128,6 +128,27 @@ class Article {
         }
     }
 
+    static async deleteArticle(id) {
+        try {
+            const article = await this.article().findOne({ _id: ObjectId(id) })
+            if (!article) {
+                throw {
+                    name: 'No article found'
+                }
+            }
+            const deleteArticle = await this.article().deleteOne({ _id: ObjectId(id) })
+
+            if (deleteArticle.deletedCount === 0) {
+                throw {
+                    name: 'Delete Article failed'
+                }
+            } else {
+                return 1
+            }
+        } catch (error) {
+            throw error
+        }
+    }
 }
 
 module.exports = Article
